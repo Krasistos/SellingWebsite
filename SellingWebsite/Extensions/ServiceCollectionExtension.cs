@@ -1,7 +1,7 @@
-﻿using SellingWebsite.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SellingWebsite.Data;
+using SellingWebsite.Infrastructure.Data;
+using SellingWebsite.Infrastructure.Data.Common;
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
@@ -15,6 +15,9 @@ namespace Microsoft.Extensions.DependencyInjection
             var connectionString = config.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
             return services;
         }
