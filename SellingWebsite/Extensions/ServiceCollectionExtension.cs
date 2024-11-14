@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SellingWebsite.Infrastructure.Data;
 using SellingWebsite.Infrastructure.Data.Common;
+using SellingWebsite.Infrastructure.Data.Models;
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
-                .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             return services;
         }
