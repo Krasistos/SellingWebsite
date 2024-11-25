@@ -10,4 +10,10 @@
     <ProjectReference Include="..\SellingWebsite.Infrastructure\SellingWebsite.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
