@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SellingWebsite.Core.Constants;
 using SellingWebsite.Models;
 using System.Diagnostics;
 
@@ -20,6 +19,8 @@ namespace SellingWebsite.Controllers
             return View();
         }
 
+        // only admin can access this page
+        [Authorize(Roles = "Administrator")]
         public IActionResult Privacy()
         {
             return View();

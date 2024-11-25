@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using SellingWebsite.Infrastructure.Data.Models;
 using static SellingWebsite.Core.Constants.AdministratorConstants;
 namespace Microsoft.AspNetCore.Builder
@@ -22,7 +21,7 @@ namespace Microsoft.AspNetCore.Builder
             var adminUser = await userManager.FindByEmailAsync("admin@mail.com");
             if (adminUser == null)
             {
-                adminUser = new ApplicationUser { UserName = "admin@mail.com", Email = "admin@mail.com" };
+                adminUser = new ApplicationUser { UserName = AdminUserName, Email = AdminEmail };
                 var createResult = await userManager.CreateAsync(adminUser, "admindf1243HH&(@jd3"); // Set admin password
 
                 if (!createResult.Succeeded)
