@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SellingWebsite.Core.Constants;
 using SellingWebsite.Models;
 using System.Diagnostics;
 
@@ -19,6 +21,11 @@ namespace SellingWebsite.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult About()
         {
             return View();
         }

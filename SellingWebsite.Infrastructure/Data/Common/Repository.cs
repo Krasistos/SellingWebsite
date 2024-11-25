@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SellingWebsite.Infrastructure.Data;
-using SellingWebsite.Infrastructure.Data.Common;
 
-namespace OrderMe.Infrastructure.Data.Common
+namespace SellingWebsite.Infrastructure.Data.Common
 {
     public class Repository : IRepository
     {
