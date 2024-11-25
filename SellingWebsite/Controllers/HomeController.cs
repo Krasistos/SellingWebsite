@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace SellingWebsite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -19,8 +19,6 @@ namespace SellingWebsite.Controllers
             return View();
         }
 
-        // only admin can access this page
-        [Authorize(Roles = "Administrator")]
         public IActionResult Privacy()
         {
             return View();

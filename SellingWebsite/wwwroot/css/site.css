@@ -18,5 +18,9 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+div.form-floating.mb-3 {
+    background-color: green;
 }
