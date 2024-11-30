@@ -21,7 +21,7 @@ namespace Microsoft.AspNetCore.Builder
             var adminUser = await userManager.FindByEmailAsync("admin@mail.com");
             if (adminUser == null)
             {
-                adminUser = new ApplicationUser { UserName = AdminUserName, Email = AdminEmail };
+                adminUser = new ApplicationUser { UserName = AdminUserName, Email = AdminEmail, FirstName = AdminAreaName, LastName = "Adminov"};
                 var createResult = await userManager.CreateAsync(adminUser, "admindf1243HH&(@jd3"); // Set admin password
 
                 if (!createResult.Succeeded)

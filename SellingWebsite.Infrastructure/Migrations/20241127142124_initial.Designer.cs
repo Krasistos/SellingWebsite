@@ -12,8 +12,8 @@ using SellingWebsite.Infrastructure.Data;
 namespace SellingWebsite.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241125224747_SeedingUsersIntoDb")]
-    partial class SeedingUsersIntoDb
+    [Migration("20241127142124_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -257,7 +257,7 @@ namespace SellingWebsite.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef9f34a9-2715-4904-ae29-e5ae05df36bf",
+                            ConcurrencyStamp = "f145c8ed-4260-4819-a38a-9827f3e01e0a",
                             Email = "guest@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Guest",
@@ -265,9 +265,9 @@ namespace SellingWebsite.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMejfb0sI/6vHqd2fBScRR1XG2TA0Y8Xjq7o58y4+zc9dPZ3BIpkNUSSlycWqi0ZRQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB4tAEu++ipLvZfVQq2Kr6ZZGtJMghtcS8PXj7pu2IHuupe2nAVWBdFsaQDCBZn9DA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "de09674e-9956-4a80-951b-30224ebd6f3b",
+                            SecurityStamp = "0d311f54-9c08-4a11-b614-c991687a61b9",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         },
@@ -275,7 +275,7 @@ namespace SellingWebsite.Infrastructure.Migrations
                         {
                             Id = "e43ce836-997d-4927-ac59-74e8c41bbfd3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "85fd8b86-3366-4bd6-97e7-43b50296d35e",
+                            ConcurrencyStamp = "12971436-7aa5-4fac-aa02-256461ae0959",
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Great",
@@ -283,9 +283,9 @@ namespace SellingWebsite.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMs8ozR6x9/dGJHeq/OrTuiAwwnGYrhU8Ix6UwGpTWrjg9cUyMCcwaKSHECoEWgW7A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBvxIIq4NxP+QylbLCvEFt+p6Ayf04kx1tIC2FRg+cb5lkIx4uGLI1ScUJnORO2jlQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "50f3a8aa-8102-41cf-9867-8a385047b2e9",
+                            SecurityStamp = "fae1675b-1259-4b2c-9e9d-7bbc30701da8",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com"
                         });

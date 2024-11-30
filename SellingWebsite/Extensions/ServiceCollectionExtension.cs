@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SellingWebsite.Core.Contracts;
+using SellingWebsite.Core.Services;
 using SellingWebsite.Infrastructure.Data;
 using SellingWebsite.Infrastructure.Data.Common;
 using SellingWebsite.Infrastructure.Data.Models;
@@ -9,6 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)

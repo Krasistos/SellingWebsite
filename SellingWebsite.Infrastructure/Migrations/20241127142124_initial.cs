@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SellingWebsite.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +32,8 @@ namespace SellingWebsite.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -154,6 +158,24 @@ namespace SellingWebsite.Infrastructure.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e", 0, "f145c8ed-4260-4819-a38a-9827f3e01e0a", "guest@mail.com", true, "Guest", "Guestov", false, null, "guest@mail.com", "guest@mail.com", "AQAAAAIAAYagAAAAEB4tAEu++ipLvZfVQq2Kr6ZZGtJMghtcS8PXj7pu2IHuupe2nAVWBdFsaQDCBZn9DA==", null, false, "0d311f54-9c08-4a11-b614-c991687a61b9", false, "guest@mail.com" },
+                    { "e43ce836-997d-4927-ac59-74e8c41bbfd3", 0, "12971436-7aa5-4fac-aa02-256461ae0959", "admin@mail.com", true, "Great", "Admin", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAIAAYagAAAAEBvxIIq4NxP+QylbLCvEFt+p6Ayf04kx1tIC2FRg+cb5lkIx4uGLI1ScUJnORO2jlQ==", null, false, "fae1675b-1259-4b2c-9e9d-7bbc30701da8", false, "admin@mail.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
+                values: new object[,]
+                {
+                    { 2, "user:fullname", "Guest Guestov", "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e" },
+                    { 3, "user:fullname", "Great Admin", "e43ce836-997d-4927-ac59-74e8c41bbfd3" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,20 +1,24 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SellingWebsite.Core.Contracts;
 using SellingWebsite.Models;
 using System.Diagnostics;
 
 namespace SellingWebsite.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IEmailSender _emailSender;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger
+            , IEmailSender emailSender)
         {
             _logger = logger;
+            _emailSender = emailSender;
         }
-
-        public IActionResult Index()
+        [Authorize]
+        public async Task<IActionResult>Index()
         {
             return View();
         }
@@ -25,6 +29,11 @@ namespace SellingWebsite.Controllers
         }
 
         public IActionResult About()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminTest() 
         {
             return View();
         }
