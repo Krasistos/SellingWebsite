@@ -12,6 +12,11 @@ builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AllowAnonymousToPage("/Account/ConfirmEmail");
+});
+
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
@@ -40,6 +45,9 @@ app.UseAuthorization();
 // Map endpoints
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+
+
+
 
 // Create admin role and run app
 await app.CreateAdminRoleAsync();
