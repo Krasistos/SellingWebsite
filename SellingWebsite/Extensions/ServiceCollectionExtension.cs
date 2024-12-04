@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IEmailSender, EmailSender>();
+
             return services;
         }
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)

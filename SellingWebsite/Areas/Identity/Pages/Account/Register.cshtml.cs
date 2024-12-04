@@ -2,16 +2,15 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 //mine 
-using SellingWebsite.Core.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using SellingWebsite.Core.Contracts;
 using SellingWebsite.Infrastructure.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Text.Encodings.Web;
 
 namespace SellingWebsite.Areas.Identity.Pages.Account
 {

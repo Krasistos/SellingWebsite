@@ -12,11 +12,6 @@ builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
-builder.Services.AddRazorPages(options =>
-{
-    options.Conventions.AllowAnonymousToPage("/Account/ConfirmEmail");
-});
-
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
