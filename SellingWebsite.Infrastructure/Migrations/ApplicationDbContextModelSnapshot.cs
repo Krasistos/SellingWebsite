@@ -97,22 +97,6 @@ namespace SellingWebsite.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            ClaimType = "user:fullname",
-                            ClaimValue = "Guest Guestov",
-                            UserId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ClaimType = "user:fullname",
-                            ClaimValue = "Great Admin",
-                            UserId = "e43ce836-997d-4927-ac59-74e8c41bbfd3"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -248,44 +232,6 @@ namespace SellingWebsite.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f145c8ed-4260-4819-a38a-9827f3e01e0a",
-                            Email = "guest@mail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Guest",
-                            LastName = "Guestov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "guest@mail.com",
-                            NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB4tAEu++ipLvZfVQq2Kr6ZZGtJMghtcS8PXj7pu2IHuupe2nAVWBdFsaQDCBZn9DA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d311f54-9c08-4a11-b614-c991687a61b9",
-                            TwoFactorEnabled = false,
-                            UserName = "guest@mail.com"
-                        },
-                        new
-                        {
-                            Id = "e43ce836-997d-4927-ac59-74e8c41bbfd3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "12971436-7aa5-4fac-aa02-256461ae0959",
-                            Email = "admin@mail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Great",
-                            LastName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@MAIL.COM",
-                            NormalizedUserName = "ADMIN@MAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBvxIIq4NxP+QylbLCvEFt+p6Ayf04kx1tIC2FRg+cb5lkIx4uGLI1ScUJnORO2jlQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fae1675b-1259-4b2c-9e9d-7bbc30701da8",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@mail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

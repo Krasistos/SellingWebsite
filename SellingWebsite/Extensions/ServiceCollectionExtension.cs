@@ -5,6 +5,7 @@ using SellingWebsite.Core.Services;
 using SellingWebsite.Infrastructure.Data;
 using SellingWebsite.Infrastructure.Data.Common;
 using SellingWebsite.Infrastructure.Data.Models;
+using SellingWebsite.Infrastructure.Data.SeedDb;
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
@@ -12,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ISeedData, SeedData>();
 
             return services;
         }

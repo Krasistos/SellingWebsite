@@ -1,72 +1,109 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using SellingWebsite.Infrastructure.Data.Models;
 using static SellingWebsite.Infrastructure.Constants.CustomClaims;
 
 namespace SellingWebsite.Infrastructure.Data.SeedDb
 {
-    internal class SeedData
+    public class SeedData : ISeedData
     {
-        public IdentityUserClaim<string> GuestUserClaim { get; set; }
-        public IdentityUserClaim<string> AdminUserClaim { get; set; }
+        private readonly IConfiguration configuration;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public ApplicationUser GuestUser { get; set; }
-        public ApplicationUser AdminUser { get; set; }
-
-        public SeedData()
+        public SeedData(
+            IConfiguration _configuration,
+            UserManager<ApplicationUser> _userManager,
+            RoleManager<IdentityRole> _roleManager)
         {
-            SeedUsers();
+            configuration = _configuration;
+            userManager = _userManager;
+            roleManager = _roleManager;
         }
 
+        public async Task SeedAsync()
+        {
+            await SeedRolesAsync();
+            await SeedUsersAsync();
+        }
 
-        private void SeedUsers()
+        public async Task SeedRolesAsync()
+        {
+            var adminRole = "Admin";
+            var guestRole = "Guest";
+
+            // Ensure Admin Role
+            if (!await roleManager.RoleExistsAsync(adminRole))
+            {
+                await roleManager.CreateAsync(new IdentityRole(adminRole));
+            }
+
+            // Ensure Guest Role
+            if (!await roleManager.RoleExistsAsync(guestRole))
+            {
+                await roleManager.CreateAsync(new IdentityRole(guestRole));
+            }
+        }
+        public async Task SeedUsersAsync()
         {
             var hasher = new PasswordHasher<ApplicationUser>();
 
-            GuestUser = new ApplicationUser()
+            // Seed Guest User
+            var guestEmail = configuration["Guest:Email"];
+            var guestPassword = configuration["Guest:Password"];
+            var guestUser = await userManager.FindByEmailAsync(guestEmail);
+
+            if (guestUser == null)
             {
-                Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                UserName = "guest@mail.com",
-                NormalizedUserName = "guest@mail.com",
-                Email = "guest@mail.com",
-                NormalizedEmail = "guest@mail.com",
-                FirstName = "Guest",
-                LastName = "Guestov",
-            };
+                var newGuestUser = new ApplicationUser
+                {
+                    Id = configuration["Guest:Id"],
+                    UserName = guestEmail,
+                    NormalizedUserName = guestEmail.ToUpper(),
+                    Email = guestEmail,
+                    NormalizedEmail = guestEmail.ToUpper(),
+                    FirstName = "Guest",
+                    LastName = "Guestov",
+                    EmailConfirmed = true,
+                };
+                newGuestUser.PasswordHash = hasher.HashPassword(newGuestUser, guestPassword);
 
-            GuestUserClaim = new IdentityUserClaim<string>()
+                await userManager.CreateAsync(newGuestUser);
+                await userManager.AddToRoleAsync(newGuestUser, "Guest");
+
+                // Adding claim
+                var guestClaim = new System.Security.Claims.Claim(UserFullNameClaim, "Guest Guestov");
+                await userManager.AddClaimAsync(newGuestUser, guestClaim);
+            }
+
+            // Seed Admin User
+            var adminEmail = configuration["Admin:Email"];
+            var adminPassword = configuration["Admin:Password"];
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            if (adminUser == null)
             {
-                Id = 2,
-                ClaimType = UserFullNameClaim,
-                ClaimValue = "Guest Guestov",
-                UserId = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"
-            };
+                var newAdminUser = new ApplicationUser
+                {
+                    Id = configuration["Admin:Id"],
+                    UserName = adminEmail,
+                    NormalizedUserName = adminEmail.ToUpper(),
+                    Email = adminEmail,
+                    NormalizedEmail = adminEmail.ToUpper(),
+                    FirstName = "Great",
+                    LastName = "Admin",
+                    EmailConfirmed = true,
+                };
+                newAdminUser.PasswordHash = hasher.HashPassword(newAdminUser, adminPassword);
 
-            GuestUser.PasswordHash = hasher.HashPassword(GuestUser, "guest098@KD(JM+KF*@");
-            GuestUser.EmailConfirmed = true;
+                await userManager.CreateAsync(newAdminUser);
+                await userManager.AddToRoleAsync(newAdminUser, "Admin");
 
-
-            AdminUser = new ApplicationUser()
-            {
-                Id = "e43ce836-997d-4927-ac59-74e8c41bbfd3",
-                UserName = "admin@mail.com",
-                NormalizedUserName = "ADMIN@MAIL.COM",
-                Email = "admin@mail.com",
-                NormalizedEmail = "ADMIN@MAIL.COM",
-                FirstName = "Great",
-                LastName = "Admin",
-            };
-
-            AdminUserClaim = new IdentityUserClaim<string>()
-            {
-                Id = 3,
-                ClaimType = UserFullNameClaim,
-                UserId = "e43ce836-997d-4927-ac59-74e8c41bbfd3",
-                ClaimValue = "Great Admin",
-            };
-
-            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "admin:L*(03[vjg");
-            AdminUser.EmailConfirmed = true;
-
+                // Adding claim
+                var adminClaim = new System.Security.Claims.Claim(UserFullNameClaim, "Great Admin");
+                await userManager.AddClaimAsync(newAdminUser, adminClaim);
+            }
         }
+
     }
 }

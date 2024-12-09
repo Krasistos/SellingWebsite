@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using SellingWebsite.Infrastructure.Data.SeedDb;
+using SellingWebsite.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,24 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try { 
+        var dbContext = services.GetRequiredService<ApplicationDbContext>();
+        dbContext.Database.Migrate();
+
+        var seedData = services.GetRequiredService<ISeedData>();
+        await seedData.SeedAsync();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error during seeding: {ex.Message}");
+        throw;
+    }
+}
 
 // Middleware
 if (app.Environment.IsDevelopment())
@@ -41,9 +62,4 @@ app.UseAuthorization();
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
 
-
-
-
-// Create admin role and run app
-await app.CreateAdminRoleAsync();
 await app.RunAsync();

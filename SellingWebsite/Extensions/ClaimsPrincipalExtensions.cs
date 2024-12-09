@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using static SellingWebsite.Core.Constants.AdministratorConstants;
 
 public static class ClaimsPrincipalExtensions
 {
@@ -12,7 +11,7 @@ public static class ClaimsPrincipalExtensions
         return user != null &&
                user.Identity != null &&
                user.Identity.IsAuthenticated &&
-               user.IsInRole(AdminRole);
+               user.IsInRole("Admin");
     }
 
 }
